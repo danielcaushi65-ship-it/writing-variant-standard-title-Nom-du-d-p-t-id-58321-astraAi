@@ -1,0 +1,136 @@
+:::writing{variant=“standard” title=“Code du site AstraAI” id=“4182DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AstraAI</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b1020;
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid #27304d;
+      font-size: 25px;
+      font-weight: bold;
+      color: #a9b8ff;
+    }
+    main {
+      width: 100%;
+      max-width: 760px;
+      margin: auto;
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    h1 { font-size: 30px; margin-bottom: 8px; }
+    .intro { color: #b8c1d9; line-height: 1.5; }
+    #messages {
+      flex: 1;
+      min-height: 250px;
+      margin: 22px 0;
+    }
+    .message {
+      padding: 14px 16px;
+      margin: 12px 0;
+      border-radius: 16px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+    .bot { background: #192440; }
+    .user { background: #394a9c; margin-left: 35px; }
+    form {
+      display: flex;
+      gap: 8px;
+      position: sticky;
+      bottom: 0;
+      padding: 12px 0;
+      background: #0b1020;
+    }
+    input {
+      flex: 1;
+      min-width: 0;
+      padding: 15px;
+      border-radius: 14px;
+      border: 1px solid #394564;
+      background: #151d33;
+      color: white;
+      font-size: 16px;
+    }
+    button {
+      padding: 14px 18px;
+      border: 0;
+      border-radius: 14px;
+      background: #7c8cff;
+      color: #10152b;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    footer {
+      padding: 15px;
+      text-align: center;
+      font-size: 12px;
+      color: #8994b3;
+    }
+  </style>
+</head>
+<body>
+  <header>✦ AstraAI</header>
+  <main>
+    <h1>Bonjour, bienvenue ! 👋</h1>
+    <p class="intro">Je suis AstraAI, ton assistant. Pose-moi une question pour commencer.</p>
+    <section id="messages" aria-live="polite">
+      <div class="message bot">Bonjour ! ✨ Je suis AstraAI. Écris-moi un message !</div>
+    </section>
+    <form id="chat">
+      <input id="question" placeholder="Écris ton message..." autocomplete="off" required>
+      <button type="submit">Envoyer</button>
+    </form>
+  </main>
+  <footer>AstraAI · Première version</footer>
+  <script>
+    const form = document.getElementById('chat');
+    const input = document.getElementById('question');
+    const messages = document.getElementById('messages');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      const text = input.value.trim();
+      if (!text) return;
+
+      addMessage(text, 'user');
+      input.value = '';
+
+      let reply = "Merci pour ton message ! 💙 Pour l'instant, je suis une première version de démonstration. Mon intelligence artificielle devra être connectée ensuite pour pouvoir répondre réellement à tes questions.";
+
+      if (/bonjour|salut|coucou/i.test(text)) {
+        reply = "Bonjour ! 💙 Ravi de te retrouver sur AstraAI. Comment vas-tu ?";
+      } else if (/ton nom|qui es-tu|qui es tu/i.test(text)) {
+        reply = "Je suis AstraAI, ton assistant virtuel ! ✨";
+      } else if (/merci/i.test(text)) {
+        reply = "Avec plaisir ! 💙";
+      }
+
+      setTimeout(() => addMessage(reply, 'bot'), 400);
+    });
+
+    function addMessage(text, type) {
+      const message = document.createElement('div');
+      message.className = 'message ' + type;
+      message.textContent = text;
+      messages.appendChild(message);
+      message.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  </script>
+</body>
+</html
